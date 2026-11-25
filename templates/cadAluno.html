@@ -1,0 +1,39 @@
+{% extends "pagina.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('alunos') }}">
+    <div class="mb-3">
+        <label for="nome" class="form-label fw-bold">Cadastre o novo Aluno:</label>
+        <input type="text" class="form-control" id="nome" name="nome" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="disciplina_id" class="form-label fw-bold">Disciplina associada:</label>
+        <select class="form-select" id="disciplina_id" name="disciplina_id">
+            {% for d in disciplinas %}
+            <option value="{{ d.id }}">{{ d.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-outline-secondary">Cadastrar</button>
+</form>
+
+<h2 class="mt-4">Relação de alunos cadastrados</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Aluno</th>
+            <th>Disciplina</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in alunos %}
+        <tr>
+            <td>{{ a.nome }}</td>
+            <td>{{ a.disciplina.nome }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
